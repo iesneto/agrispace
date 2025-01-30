@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 
 
 namespace Agrispace.Quests
 {
     public class QuestStatus
-    {
-        public Quest QuestData;
-        public Dictionary<int, ObjectiveStatus> ObjectiveStatuses;
+    {        
+        public Quest QuestData { get; private set; }
+        public Dictionary<int, ObjectiveStatus> ObjectiveStatuses { get; private set; }
 
         public QuestStatus(Quest questData)
         {

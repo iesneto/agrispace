@@ -40,16 +40,16 @@ namespace Agrispace.Quests
             {
                 string[] objectiveNames = quest.Objectives.Select(o => o.Name).ToArray();
 
-                int selectedObjecive = objectiveNumberProperty.intValue;
+                int selectedObjective = objectiveNumberProperty.intValue;
 
-                if (selectedObjecive >= quest.Objectives.Count)
+                if (selectedObjective >= quest.Objectives.Count)
                 {
-                    selectedObjecive = 0;
+                    selectedObjective = 0;
                 }
 
-                int newSelectedObjective = EditorGUI.Popup(thirdLinePosition, selectedObjecive, objectiveNames);
+                int newSelectedObjective = EditorGUI.Popup(thirdLinePosition, selectedObjective, objectiveNames);
 
-                if (newSelectedObjective != selectedObjecive)
+                if (newSelectedObjective != selectedObjective)
                 {
                     objectiveNumberProperty.intValue = newSelectedObjective;
                 }
