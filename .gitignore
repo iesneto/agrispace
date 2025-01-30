@@ -67,3 +67,5 @@ crashlytics-build.properties
 /[Aa]ssets/Collections*
 /[Aa]ssets/ThirdParty*
 
+/[Uu]serSettings/*
+UserSettings/Search.settings
