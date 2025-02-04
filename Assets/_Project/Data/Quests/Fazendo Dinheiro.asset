@@ -12,5 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11f77986b04fb24681745bd575fb46b, type: 3}
   m_Name: Fazendo Dinheiro
   m_EditorClassIdentifier: 
-  QuestName: 
-  Objectives: []
+  QuestName: Fazendo dinheiro
+  Objectives:
+  - Name: Colete 25 Tomates
+    IsOptional: 0
+    IsVisible: 1
+    InitialStatus: 0
+  - Name: "Leve os Tomates at\xE9 o empacotamento"
+    IsOptional: 0
+    IsVisible: 1
+    InitialStatus: 0
+  - Name: Venda a caixa de Tomates no supermercado
+    IsOptional: 0
+    IsVisible: 1
+    InitialStatus: 0
