@@ -1,22 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using Coimbra;
 using Agrispace.UI;
-using Coimbra.Services;
 using Agrispace.Core;
+using Gamob;
 
 namespace Agrispace.Quests
 {
     public class QuestManager : Singleton<QuestManager>
     {
         [SerializeField] private List<Quest> _quests = new List<Quest>();
+        [SerializeField] private SFXAudios _completeQuestAudio;
+        [SerializeField] private SFXAudios _completeObjectiveAudio;
 
         private List<QuestStatus> _questStatuses = new List<QuestStatus> ();
 
         public void UpdateObjectiveStatus(Quest quest, int objectiveNumber, ObjectiveStatus status)
-        {                        
-
+        {                                    
             foreach (QuestStatus questStatus in _questStatuses)
             {
                 if (questStatus.QuestData.name != quest.name)
@@ -24,7 +23,22 @@ namespace Agrispace.Quests
                     continue;
                 }
 
+                if (questStatus.Status == ObjectiveStatus.Complete)
+                {
+                    continue;
+                }
+
+                if (status == ObjectiveStatus.Complete)
+                {
+                    AudioSystem.Instance.PlayOneShotClip(_completeObjectiveAudio);
+                }
+
                 questStatus.ObjectiveStatuses[objectiveNumber] = status;
+
+                if(questStatus.Status == ObjectiveStatus.Complete)
+                {
+                    TriggerCompleteQuest(questStatus);
+                }
             }
 
             UpdateObjectiveSummaryText();
@@ -79,7 +93,15 @@ namespace Agrispace.Quests
             }
 
             UIManager.Instance.UpdateQuestSummary(label.ToString());
-        }        
+        }
+        
+        private void TriggerCompleteQuest(QuestStatus questStatus)
+        {
+            AudioSystem.Instance.PlayOneShotClip(_completeQuestAudio);
+            int coinReward = questStatus.QuestData.Reward;
+            GameManager.Instance.AddCoins(coinReward);
+            GameManager.Instance.CompleteQuest();
+        }
     }
 
 }
