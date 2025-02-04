@@ -95,7 +95,6 @@ namespace Gamob
             {
                 return;
             }
-            Debug.Log("Destroying musisc");
             _audioSystem.StopLoopMusic(_musicAudios);
         }
 

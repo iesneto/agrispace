@@ -15,6 +15,9 @@ namespace Gamob
     {
         NoneSFX = 0,
         SFXSample = 1,
+        ObjectiveComplete = 2,
+        QuestComplete = 3,
+        FinishGame = 4,
     }
 
     [Serializable]

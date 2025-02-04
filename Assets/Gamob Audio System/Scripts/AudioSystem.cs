@@ -236,6 +236,11 @@ namespace Gamob
 
         public void StopLoopMusic(MusicAudios audioClip)
         {
+            if (_musicChannel == null)
+            {
+                return;
+            }
+
             AudioClip audio = GetAudioClip(audioClip);
             if (_musicChannel.clip == audio)
             {
