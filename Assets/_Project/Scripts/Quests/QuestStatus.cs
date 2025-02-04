@@ -50,6 +50,8 @@ namespace Agrispace.Quests
         public override string ToString()
         {
             System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.AppendFormat($"Status: {this.Status.ToString()}");
+            stringBuilder.AppendLine();
 
             for (int i = 0; i < QuestData.Objectives.Count; i++)
             {
@@ -63,17 +65,14 @@ namespace Agrispace.Quests
 
                 if (objectiveData.IsOptional)
                 {
-                    stringBuilder.AppendFormat($"{objectiveData.Name} (Optional) - {objectiveStatus.ToString()}\n");
+                    stringBuilder.AppendFormat($" - {objectiveData.Name} (Optional) - {objectiveStatus.ToString()}\n");
                 }
                 else
                 {
-                    stringBuilder.AppendFormat($"{objectiveData.Name} - {objectiveStatus.ToString()}\n");
+                    stringBuilder.AppendFormat($" - {objectiveData.Name} - {objectiveStatus.ToString()}\n");
                 }
 
             }
-
-            stringBuilder.AppendLine();
-            stringBuilder.AppendFormat($"Status: {this.Status.ToString()}");
 
             return stringBuilder.ToString();
         }

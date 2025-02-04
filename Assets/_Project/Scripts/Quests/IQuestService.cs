@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace Agrispace.Quests
 {
-    [RequiredService]
+    //[RequiredService]
     public interface IQuestService : IService
     {
-        public void StartQuest(Quest quest);
         public void UpdateObjectiveStatus(Quest quest, int objectiveNumber, ObjectiveStatus status);
         public ObjectiveStatus GetObjectiveStatus(Quest quest, int objectiveNumber);
+        public void InitializeQuestStatuses();
 
     }
 }

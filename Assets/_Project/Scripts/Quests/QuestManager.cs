@@ -2,42 +2,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Coimbra;
+using Agrispace.UI;
+using Coimbra.Services;
+using Agrispace.Core;
 
 namespace Agrispace.Quests
 {
-    public class QuestManager : Actor, IQuestService
+    public class QuestManager : Singleton<QuestManager>
     {
-        [SerializeField] private Quest _startingQuest = null;
-        [SerializeField] private TextMeshProUGUI _objectiveSummary = null;
         [SerializeField] private List<Quest> _quests = new List<Quest>();
 
-        private QuestStatus _activeQuestStatus;
         private List<QuestStatus> _questStatuses = new List<QuestStatus> ();
 
-        public void StartQuest(Quest quest)
-        {
-            _activeQuestStatus = new QuestStatus(quest);
-            UpdateObjectiveSummaryText();
-
-            Debug.LogFormat($"Started quest {_activeQuestStatus.QuestData.QuestName}");
-        }
-
         public void UpdateObjectiveStatus(Quest quest, int objectiveNumber, ObjectiveStatus status)
-        {
-            if (_activeQuestStatus == null)
-            {
-                Debug.LogError("Tried to set an objective status, but no quest is active");
-                return;
-            }
-
-            if (_activeQuestStatus.QuestData != quest)
-            {
-                Debug.LogWarningFormat($"Tried to set an objective status for quest {quest.QuestName}, but this is not the active quest. Ignoring");
-                return;
-            }
-
-            _activeQuestStatus.ObjectiveStatuses[objectiveNumber] = status;
-            UpdateObjectiveSummaryText();
+        {                        
 
             foreach (QuestStatus questStatus in _questStatuses)
             {
@@ -48,6 +26,8 @@ namespace Agrispace.Quests
 
                 questStatus.ObjectiveStatuses[objectiveNumber] = status;
             }
+
+            UpdateObjectiveSummaryText();
         }
 
         public ObjectiveStatus GetObjectiveStatus(Quest quest, int objectiveNumber)
@@ -70,43 +50,36 @@ namespace Agrispace.Quests
             return ObjectiveStatus.Open;
         }
 
-        protected override void OnInitialize()
+        public void InitializeQuestStatuses()
         {
-            base.OnInitialize();
-            DontDestroyOnLoad(this);
-
-            if (_startingQuest == null)
-            {
-                return;
-            }
-            InitializeQuestStatuses();
-            StartQuest(_startingQuest);
-        }
-
-        private void UpdateObjectiveSummaryText()
-        {
-            string label;
-
-            if (_activeQuestStatus == null)
-            {
-                label = "No active quest.";
-            }
-            else
-            {
-                label = _activeQuestStatus.ToString();
-            }
-
-            _objectiveSummary.text = label;
-        }
-
-        private void InitializeQuestStatuses()
-        {
+            _questStatuses.Clear();
             foreach (Quest quest in _quests)
             {
                 QuestStatus questStatus = new QuestStatus(quest);
                 _questStatuses.Add(questStatus);
             }
+            UpdateObjectiveSummaryText();
         }
+
+        private void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+            InitializeQuestStatuses();
+        }
+
+        private void UpdateObjectiveSummaryText()
+        {
+            System.Text.StringBuilder label = new System.Text.StringBuilder();
+
+            foreach (QuestStatus questStatus in _questStatuses)
+            {
+                label.AppendFormat($"Quest: {questStatus.QuestData.QuestName}\n");
+                label.AppendFormat(questStatus.ToString());
+                label.AppendLine();                
+            }
+
+            UIManager.Instance.UpdateQuestSummary(label.ToString());
+        }        
     }
 
 }
