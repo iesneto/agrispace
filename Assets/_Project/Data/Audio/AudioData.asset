@@ -23,10 +23,16 @@ MonoBehaviour:
     - key: 0
       value: {fileID: 0}
     - key: 1
-      value: {fileID: 0}
+      value: {fileID: 8300000, guid: c56df09ce1084f644a8c4f5dbd2728f9, type: 3}
+    - key: 2
+      value: {fileID: 8300000, guid: be2e7b412e330d347aa6f08655d9ea6b, type: 3}
+    - key: 3
+      value: {fileID: 8300000, guid: 8d432e55a71a87c4cac7d9beff979ded, type: 3}
+    - key: 4
+      value: {fileID: 8300000, guid: ad90ed80b90ef864da2496037858d6c6, type: 3}
   UIAudios:
     _pairs:
     - key: 0
       value: {fileID: 0}
     - key: 1
-      value: {fileID: 0}
+      value: {fileID: 8300000, guid: 657953634aef2344e9d41bef78d9d6c9, type: 3}
