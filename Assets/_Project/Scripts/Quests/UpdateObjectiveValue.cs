@@ -11,15 +11,11 @@ namespace Agrispace.Quests
         [SerializeField] private ObjectiveTrigger _objective = new ObjectiveTrigger();
         [SerializeField] private int _value;
         [SerializeField] private LayerMask _playerLayer;
-        [SerializeField] private int _coolDownTime;
-
-        private MeshRenderer _meshRenderer;
-        private Collider _collider;
+        [SerializeField] private IFeedback _feedback;
 
         private void Start()
         {
-            _meshRenderer = GetComponent<MeshRenderer>();
-            _collider = GetComponent<Collider>();
+            _feedback = GetComponent<IFeedback>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -27,18 +23,20 @@ namespace Agrispace.Quests
             if ((_playerLayer & 1 << other.gameObject.layer) != 0)
             {
                 new UpdateQuestObjectiveValueEvent(_objective, _value).Invoke(this);
-                ItemCoolDown();
+                RunFeedback();
             }
         }
 
-        private async void ItemCoolDown()
+        private void RunFeedback()
         {
-            _meshRenderer.enabled = false;
-            _collider.enabled = false;
-            await UniTask.Delay(_coolDownTime);
-            _meshRenderer.enabled = true;
-            _collider.enabled = true;
+            if (_feedback == null) 
+            {
+                return;
+            }
+            _feedback.Run();
         }
+
+        
     }
 }
 
