@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c11f77986b04fb24681745bd575fb46b, type: 3}
-  m_Name: O gado esta com sede
+  m_Name: OGadoEstaComSede
   m_EditorClassIdentifier: 
   QuestName: "O gado est\xE1 com sede."
   Objectives:
@@ -22,3 +22,4 @@ MonoBehaviour:
     IsOptional: 0
     IsVisible: 1
     InitialStatus: 0
+  Reward: 75
