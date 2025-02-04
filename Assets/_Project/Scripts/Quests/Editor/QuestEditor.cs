@@ -13,6 +13,8 @@ namespace Agrispace.Quests
             serializedObject.Update();
 
             EditorGUILayout.PropertyField(serializedObject.FindProperty("QuestName"), new GUIContent("Name"));
+            
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("Reward"), new GUIContent("Reward"));
 
             EditorGUILayout.LabelField("Objectives");
 
